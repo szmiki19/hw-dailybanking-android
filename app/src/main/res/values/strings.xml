@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MovieBrowser</string>
+    <string name="error_message">Failed to load movies</string>
 </resources>

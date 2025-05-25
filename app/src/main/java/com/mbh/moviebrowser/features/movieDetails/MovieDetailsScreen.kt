@@ -20,10 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.mbh.moviebrowser.domain.Movie
+import com.mbh.moviebrowser.data.repository.model.MovieData
 
 @Composable
 fun MovieDetailsScreen(viewModel: MovieDetailsViewModel) {
@@ -35,7 +36,7 @@ fun MovieDetailsScreen(viewModel: MovieDetailsViewModel) {
 
 @Composable
 fun MovieDetailsScreenUI(
-    movie: Movie?,
+    movie: MovieData?,
     onFavoriteClicked: (Boolean) -> Unit,
 ) {
     if (movie == null) {
@@ -70,16 +71,23 @@ fun MovieDetailsScreenUI(
                 onFavoriteClicked(!movie.isFavorite)
             },
         )
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = movie.title,
             style = MaterialTheme.typography.headlineMedium,
-            color = Color.White,
+            color = Color.Black,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = movie.releaseDate,
+            style = MaterialTheme.typography.headlineSmall,
+            color = Color.Black,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = movie.overview ?: "",
+            text = movie.overview,
             style = MaterialTheme.typography.bodyLarge,
-            color = Color.White,
+            color = Color.Black,
         )
     }
 }
@@ -87,18 +95,19 @@ fun MovieDetailsScreenUI(
 @Composable
 @Preview(
     name = "phone",
-    device = "spec:shape=Normal,width=360,height=640,unit=dp,dpi=480",
+    device = Devices.PHONE,
     showSystemUi = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 fun MovieDetailsScreenUIPreview() {
     MovieDetailsScreenUI(
-        movie = Movie(
+        movie = MovieData(
             id = 123L,
             title = "Example Movie",
             genres = "Action, Adventure, Sci-Fi",
             overview = "This is an overview of the example movie. It's full of action, adventure and sci-fi elements.",
             coverUrl = "https://image.tmdb.org/t/p/w300/qW4crfED8mpNDadSmMdi7ZDzhXF.jpg",
+            releaseDate = "2025-05-25",
             rating = 4.5f,
             isFavorite = false,
         ),
